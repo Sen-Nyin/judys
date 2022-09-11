@@ -1,10 +1,10 @@
 'use: strict';
 import sprite from '../../assets/sprite.svg';
 export default class Navbuilder {
-  constructor(brand, location, navItems) {
-    this.navItems = navItems;
-    this.brand = brand;
-    this.location = location;
+  constructor(options) {
+    this.navItems = options.navItems;
+    this.brand = options.brand;
+    this.location = options.location;
   }
   build() {
     const navbarElement = document.createElement('nav');

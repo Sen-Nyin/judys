@@ -7,17 +7,23 @@
   --default-font-family: 'Ubuntu', sans-serif;
   --default-font-size: var(--fnt-sz-m);
   --default-font-weight: var(--fnt-wt-s);
+  --default-box-shadow: hsla(0, 0%, 0%, 0.35) 0rem 0.5rem 1.5rem;
   // Head
-
+  --header-bg-fade-value: 0.5;
+  --header-text-color: var(--clr-white);
+  --header-title-text-size: #{a.insertClamp(3, 5, 280, 1170)};
+  --header-title-text-weight: var(--fnt-wt-xl);
+  --header-subtext-text-size: var(--fnt-sz-l);
+  --header-subtext-text-weight: var(--fnt-wt-l);
   // Nav
   --nav-bg-clr: var(--clr-primary);
-  --brand-text-size: var(--fnt-sz-xxl);
+  --brand-text-size: var(--fnt-sz-xl);
   --brand-text-weight: var(--fnt-wt-xl);
   --brand-location-text-size: var(--fnt-sz-m);
   --brand-location-text-weight: var(--fnt-wt-xs);
   --brand-location-text-color: var(--clr-light-grey);
 
-  --nav-link-text-size: var(--fnt-sz-s);
+  --nav-link-text-size: var(--fnt-sz-m);
   --nav-link-text-weight: var(--fnt-wt-xs);
   --nav-link-text-color: ;
   --nav-link-gap: 2rem;
@@ -29,8 +35,8 @@
   --nav-icon-color: var(--nav-link-text-color);
 
   // Text
-  --fnt-sz-xxl: 4rem;
-  --fnt-sz-xl: 3.5rem;
+  --fnt-sz-xxl: 5rem;
+  --fnt-sz-xl: 4rem;
   --fnt-sz-l: 2rem;
   --fnt-sz-m: 1.6rem;
   --fnt-sz-s: 1.4rem;
