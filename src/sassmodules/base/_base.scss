@@ -1,0 +1,48 @@
+@use '../abstracts/' as a;
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+:root {
+  font-size: 62.5%;
+  // defaults
+  --default-font-family: 'Ubuntu', sans-serif;
+  --default-font-size: var(--fnt-sz-m);
+  --default-font-weight: var(--fnt-wt-s);
+  // Head
+
+  // Nav
+  --brand-text-size: ;
+  --brand-text-weight: ;
+  --brand-location-text-size: ;
+  --brand-location-text-weight: ;
+  --brand-location-text-color: ;
+
+  --nav-link-text-size: ;
+  --nav-link-text-weight: ;
+  --nav-link-text-color: ;
+  --nav-link-gap: ;
+
+  // Text
+  --fnt-sz-xxl: 4rem;
+  --fnt-sz-xl: 3.5rem;
+  --fnt-sz-l: 2rem;
+  --fnt-sz-m: 1.6rem;
+  --fnt-sz-s: 1.4rem;
+  --fnt-sz-xs: 1.2rem;
+  --fnt-wt-xs: 300;
+  --fnt-wt-s: 400;
+  --fnt-wt-m: 500;
+  --fnt-wt-x: 600;
+  --fnt-wt-xl: 700;
+
+  // colors
+
+  --clr-primary: hsl(180, 100%, 25%);
+  --clr-white: hsl(0, 0%, 95%);
+}
+
+body {
+  font-family: var(--default-font-family);
+  font-weight: var(--default-font-weight);
+  font-size: var(--default-font-size);
+  line-height: 1.9;
+}
