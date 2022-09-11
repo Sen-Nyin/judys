@@ -10,16 +10,23 @@
   // Head
 
   // Nav
-  --brand-text-size: ;
-  --brand-text-weight: ;
-  --brand-location-text-size: ;
-  --brand-location-text-weight: ;
-  --brand-location-text-color: ;
+  --nav-bg-clr: var(--clr-primary);
+  --brand-text-size: var(--fnt-sz-xxl);
+  --brand-text-weight: var(--fnt-wt-xl);
+  --brand-location-text-size: var(--fnt-sz-m);
+  --brand-location-text-weight: var(--fnt-wt-xs);
+  --brand-location-text-color: var(--clr-light-grey);
 
-  --nav-link-text-size: ;
-  --nav-link-text-weight: ;
+  --nav-link-text-size: var(--fnt-sz-s);
+  --nav-link-text-weight: var(--fnt-wt-xs);
   --nav-link-text-color: ;
-  --nav-link-gap: ;
+  --nav-link-gap: 2rem;
+
+  --nav-padding: 2rem;
+  --nav-link-padding-x: 1rem;
+  --nav-link-padding-y: 2rem;
+  --nav-icon-size: 2.5rem;
+  --nav-icon-color: var(--nav-link-text-color);
 
   // Text
   --fnt-sz-xxl: 4rem;
@@ -37,12 +44,16 @@
   // colors
 
   --clr-primary: hsl(180, 100%, 25%);
+  --clr-secondary: hsl(32, 100%, 49%);
   --clr-white: hsl(0, 0%, 95%);
+  --clr-dark-grey: hsl(0, 0%, 20%);
+  --clr-light-grey: hsl(0, 0%, 40%);
 }
 
 body {
   font-family: var(--default-font-family);
   font-weight: var(--default-font-weight);
   font-size: var(--default-font-size);
+  color: var(--clr-dark-grey);
   line-height: 1.9;
 }

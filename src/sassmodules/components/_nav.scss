@@ -1,34 +1,70 @@
 @use '../abstracts/' as a;
 
 .navbar {
-  display: flex;
-  justify-content: space-between;
+  color: var(--clr-white);
+  padding: var(--nav-padding);
+  background: var(--nav-bg-clr);
 
   &__brand {
-    display: flex;
-    flex-direction: column;
+    &--link {
+      display: flex;
+      flex-direction: column;
+    }
+
     font-size: var(--brand-text-size);
     font-weight: var(--brand-text-weight);
+    line-height: 1.2;
+    margin-right: auto;
+    flex: 1;
+
     &--location {
       font-size: var(--brand-location-text-size);
       font-weight: var(--brand-location-text-weight);
-      color: var(--brand-location-text-color);
+      text-transform: uppercase;
+      opacity: 0.6;
     }
   }
 
   &__navlist {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
     @include a.breakpoint(md, min) {
       display: flex;
       gap: var(--nav-link-gap);
     }
   }
 
-  //   &__item {
-  //   }
+  &__item {
+    width: 100%;
+    text-align: center;
+    display: none;
+
+    @include a.breakpoint(lg, min) {
+      width: auto;
+      position: relative;
+      display: block;
+    }
+  }
 
   &__link {
+    display: block;
     font-size: var(--nav-link-text-size);
     font-weight: var(--nav-link-text-weight);
     text-transform: uppercase;
+    padding-inline: var(--nav-link-padding-x);
+    padding-block: var(--nav-link-padding-y);
+    cursor: pointer;
+  }
+}
+
+.active .navbar__item {
+  display: block;
+}
+
+.toggle {
+  @include a.breakpoint(lg, min) {
+    display: none;
   }
 }
