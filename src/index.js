@@ -6,7 +6,7 @@ import NavController from './jsmodules/builders/navBuilder.js';
 
 // setup
 const options = {
-  brand: "Judy's",
+  brand: "Jude's",
   location: 'Liverpool',
   navItems: ['home', 'menu', 'gallery', 'reviews', 'contact'],
 };
