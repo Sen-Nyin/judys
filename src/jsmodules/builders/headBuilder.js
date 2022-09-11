@@ -12,8 +12,7 @@ export default class Headbuilder {
 
     const heroTitle = document.createElement('h1');
     heroTitle.classList.add('header__title');
-    heroTitle.textContent =
-      "When Jude's Burgers makes burgers, they make the best burgers";
+    heroTitle.textContent = 'If Carlsberg made burgers, ours would be better';
 
     const heroSubtext = document.createElement('h2');
     heroSubtext.classList.add('header__subtext');

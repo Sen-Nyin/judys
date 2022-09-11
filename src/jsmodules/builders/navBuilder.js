@@ -52,11 +52,19 @@ export default class Navbuilder {
       navLink.classList.add('navbar__link');
 
       navLink.textContent = `${item}`;
+      if (item === 'home') {
+        navLink.setAttribute('href', '#');
+      } else {
+        navLink.setAttribute('href', `#${item}`);
+      }
 
       navItem.append(navLink);
 
       navbarListElement.append(navItem);
     });
+
+    navbarElement.addEventListener('mouseover', this.handleHover.bind(0.3));
+    navbarElement.addEventListener('mouseout', this.handleHover.bind(1));
 
     return navbarElement;
   }
@@ -71,4 +79,18 @@ export default class Navbuilder {
     }
     navbar.classList.toggle('active');
   }
+
+  handleHover = function (event) {
+    if (event.target.classList.contains('navbar__link')) {
+      const link = event.target;
+      const siblings = link
+        .closest('.navbar')
+        .querySelectorAll('.navbar__link');
+      siblings.forEach((element) => {
+        if (element !== link) {
+          element.style.opacity = this;
+        }
+      });
+    }
+  };
 }

@@ -35,11 +35,7 @@
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    // position: absolute;
-    @include a.breakpoint(md, min) {
-      display: flex;
-      gap: var(--nav-link-gap);
-    }
+    gap: var(--nav-link-gap);
   }
 
   &__item {
@@ -59,8 +55,6 @@
     font-size: var(--nav-link-text-size);
     font-weight: var(--nav-link-text-weight);
     text-transform: uppercase;
-    padding-inline: var(--nav-link-padding-x);
-    padding-block: var(--nav-link-padding-y);
     cursor: pointer;
   }
 }

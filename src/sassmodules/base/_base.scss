@@ -8,6 +8,8 @@
   --default-font-size: var(--fnt-sz-m);
   --default-font-weight: var(--fnt-wt-s);
   --default-box-shadow: hsla(0, 0%, 0%, 0.35) 0rem 0.5rem 1.5rem;
+  --default-content-width: min(90%, 110rem);
+  --default-border-radius: 0.8rem;
   // Head
   --header-bg-fade-value: 0.5;
   --header-text-color: var(--clr-white);
@@ -15,6 +17,7 @@
   --header-title-text-weight: var(--fnt-wt-xl);
   --header-subtext-text-size: var(--fnt-sz-l);
   --header-subtext-text-weight: var(--fnt-wt-l);
+  --header-gap: 3rem;
   // Nav
   --nav-bg-clr: var(--clr-primary);
   --brand-text-size: var(--fnt-sz-xl);
@@ -26,11 +29,9 @@
   --nav-link-text-size: var(--fnt-sz-m);
   --nav-link-text-weight: var(--fnt-wt-xs);
   --nav-link-text-color: ;
-  --nav-link-gap: 2rem;
+  --nav-link-gap: 4rem;
 
   --nav-padding: 2rem;
-  --nav-link-padding-x: 1rem;
-  --nav-link-padding-y: 2rem;
   --nav-icon-size: 2.5rem;
   --nav-icon-color: var(--nav-link-text-color);
 
