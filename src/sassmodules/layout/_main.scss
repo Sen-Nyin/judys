@@ -1,0 +1,19 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-block: 10rem;
+
+  &__container {
+    flex: 1;
+    width: var(--default-content-width);
+    display: grid;
+    align-content: center;
+    justify-content: center;
+  }
+
+  &__heading {
+    font-size: var(--section-heading-text-size);
+    font-weight: var(--section-heading-text-weight);
+  }
+}
