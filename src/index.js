@@ -26,9 +26,7 @@ class Controller {
       });
   }
   displayElements() {
-    document.body.append(this.View.header);
-    document.body.append(this.View.main);
-    document.body.append(this.View.footer);
+    document.body.append(this.View.header, this.View.main, this.View.footer);
   }
 
   eventHandlers() {
@@ -43,7 +41,7 @@ class Controller {
       .addEventListener('click', this.View.toggleNav);
   }
   init() {
-    this.View.buildPage(this.Model);
+    this.View.initElements(this.Model);
     this.displayElements();
     this.applySmoothScroll();
     this.eventHandlers();

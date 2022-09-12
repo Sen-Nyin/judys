@@ -3,6 +3,9 @@ import sprite from '../assets/sprite.svg';
 import heroimage from '../assets/shopimage.png';
 
 export default class View {
+  constructor() {
+    this.pageElements = {};
+  }
   capitalise(string) {
     const capitalised = string.charAt(0).toUpperCase() + string.slice(1);
     return capitalised;
@@ -13,48 +16,43 @@ export default class View {
     styles.forEach((style) => createdElement.classList.add(style));
     return createdElement;
   }
-  buildPage(options) {
+  createSVG(...args) {
+    const [icon, ...styles] = args;
+    const w3ns = 'http://www.w3.org/2000/svg';
+    const svg = document.createElementNS(w3ns, 'svg');
+    const use = document.createElementNS(w3ns, 'use');
+    use.setAttribute('href', `${sprite}#icon-${icon}`);
+    styles.forEach((style) => svg.classList.add(style));
+    svg.append(use);
+    return svg;
+  }
+  buildPage() {
     const header = this.createElement('header', 'header');
     const main = this.createElement('main', 'main');
     const footer = this.createElement('footer', 'footer');
-
-    // build head
-    const navbar = this.buildNav(
-      options.brand,
-      options.location,
-      options.navItems
+    header.append(this.pageElements.navbar, this.pageElements.hero);
+    main.append(
+      this.pageElements.menus,
+      this.pageElements.gallery,
+      this.pageElements.reviews,
+      this.pageElements.contact
     );
-    const head = this.buildHead();
-    header.append(navbar, head);
-
-    // build content
-    const menuSection = this.buildMenus();
-    const gallerySection = this.buildGallery();
-    const reviewsSection = this.buildReviews();
-    const contactSection = this.buildContactForm();
-    main.append(menuSection, gallerySection, reviewsSection, contactSection);
-
-    // build footer
-
-    const footerSection = this.buildFooter();
-    footer.append(footerSection);
-
+    footer.append(this.pageElements.footerContent);
     this.header = header;
     this.main = main;
     this.footer = footer;
   }
-  buildHead() {
+  buildHero(options) {
     const heroElement = this.createElement('div', 'header__hero');
     const heroTitle = this.createElement('h1', 'header__title');
-    heroTitle.textContent = 'If Carlsberg made burgers, ours would be better';
+    heroTitle.textContent = options.headline;
     const heroSubtext = this.createElement('h2', 'header__subtext');
-    heroSubtext.textContent = 'Big fat burgers';
+    heroSubtext.textContent = options.subtext;
     const heroImage = this.createElement('img', 'header__image');
     heroImage.setAttribute('src', `${heroimage}`);
     heroElement.append(heroTitle, heroSubtext, heroImage);
-    return heroElement;
+    this.pageElements.hero = heroElement;
   }
-
   buildNav(brand, location, navItems) {
     const navbarElement = this.createElement('nav', 'navbar');
     const navbarListElement = this.createElement('ul', 'navbar__navlist');
@@ -65,22 +63,16 @@ export default class View {
       'navbar__brand--location'
     );
     const burgerItem = this.createElement('li', 'toggle');
-    const burgerIconSVG = document.createElementNS(
-      'http://www.w3.org/2000/svg',
-      'svg'
+    const burgerIconSVG = this.createSVG(
+      'burger',
+      'icon--navbar',
+      'icon--burger'
     );
-    const burgerIconUSE = document.createElementNS(
-      'http://www.w3.org/2000/svg',
-      'use'
-    );
-    burgerIconUSE.setAttribute('href', `${sprite}` + '#icon-burger');
     brandItemLink.setAttribute('href', '#');
-    burgerIconSVG.classList.add('icon--navbar', 'icon--burger');
     brandItemLink.textContent = `${brand}`;
     brandItemLocation.textContent = `${location}`;
     brandItemLink.append(brandItemLocation);
     brandItem.append(brandItemLink);
-    burgerIconSVG.append(burgerIconUSE);
     burgerItem.append(burgerIconSVG);
     navbarListElement.append(brandItem, burgerItem);
     navbarElement.append(navbarListElement);
@@ -96,44 +88,44 @@ export default class View {
       navItem.append(navLink);
       navbarListElement.append(navItem);
     });
-    return navbarElement;
+    this.pageElements.navbar = navbarElement;
   }
   buildSection(section) {
     const element = this.createElement('section', 'section');
     element.id = section;
-    const container = this.createElement('div', 'section__container');
+    const container = this.createElement('article', 'section__container');
     const header = this.createElement('h2', 'section__heading');
     header.textContent = this.capitalise(section);
     container.append(header);
     element.append(container);
     return element;
   }
-  buildMenus() {
+  buildMenus(menu) {
     const menuSection = this.buildSection('menu');
 
-    return menuSection;
+    this.pageElements.menus = menuSection;
   }
   buildGallery() {
     const gallerySection = this.buildSection('gallery');
 
-    return gallerySection;
+    this.pageElements.gallery = gallerySection;
   }
   buildReviews() {
     const reviewsSection = this.buildSection('reviews');
 
-    return reviewsSection;
+    this.pageElements.reviews = reviewsSection;
   }
   buildContactForm() {
     const contactSection = this.buildSection('contact');
 
-    return contactSection;
+    this.pageElements.contact = contactSection;
   }
   buildFooter() {
     const footerMessage = this.createElement('p', 'footer__copyright');
-    footerMessage.textContent = `&copy; Leon Lonsdale`;
-    return footerMessage;
-  }
+    footerMessage.textContent = `\u00A9 Leon Lonsdale`;
 
+    this.pageElements.footerContent = footerMessage;
+  }
   toggleNav() {
     const navbar = document.querySelector('.navbar__navlist');
     const toggle = document.querySelector('.icon--burger').firstElementChild;
@@ -144,7 +136,6 @@ export default class View {
     }
     navbar.classList.toggle('active');
   }
-
   handleHover = function (event) {
     if (event.target.classList.contains('navbar__link')) {
       const link = event.target;
@@ -158,4 +149,18 @@ export default class View {
       });
     }
   };
+  initElements(options) {
+    this.buildHero(options.hero);
+    this.buildNav(
+      options.businessDetails.brand,
+      options.businessDetails.location,
+      options.navItems
+    );
+    this.buildMenus(options.menu);
+    this.buildGallery();
+    this.buildReviews();
+    this.buildContactForm();
+    this.buildFooter();
+    this.buildPage();
+  }
 }
