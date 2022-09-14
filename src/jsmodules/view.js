@@ -12,7 +12,8 @@ import Utility from './elementbuilders/utility.js';
 
 export default class View {
   constructor() {
-    this.buildType = 'home';
+    this.home = true;
+    this.page = 'home';
     this.pageElements = {};
     this.navBuilder = new NavBuilder();
     this.heroBuilder = new HeroBuilder();
@@ -25,11 +26,10 @@ export default class View {
   }
   getElements(options) {
     this.pageElements.hero = this.heroBuilder.build(options.hero);
-    // this.pageElements.navbar = this.navBuilder.build(
-    //   options.businessDetails.brand,
-    //   options.businessDetails.city,
-    //   options.navItems.homeNav
-    // );
+    this.pageElements.navbar = this.navBuilder.build(
+      options.businessDetails,
+      options.navItems
+    );
     this.pageElements.menu = this.menuBuilder.build(options.menu);
     this.pageElements.gallery = this.galleryBuilder.build();
     this.pageElements.reviews = this.reviewsBuilder.build();
@@ -37,26 +37,16 @@ export default class View {
     this.pageElements.footer = this.footerBuilder.build();
   }
 
-  buildPage(options) {
+  buildPage() {
     const header = this.utility.create('header', 'header');
     const main = this.utility.create('main', 'main');
 
-    if (this.buildType === 'home') {
-      this.pageElements.navbar = this.navBuilder.build(
-        options.businessDetails.brand,
-        options.businessDetails.city,
-        options.navItems.homeNav
-      );
+    if (this.page === 'home') {
       header.append(this.pageElements.navbar, this.pageElements.hero);
       main.append(this.pageElements.gallery, this.pageElements.reviews);
     } else {
-      this.pageElements.navbar = this.navBuilder.build(
-        options.businessDetails.brand,
-        options.businessDetails.city,
-        options.navItems.other
-      );
       header.append(this.pageElements.navbar);
-      main.append(this.pageElements[`${this.buildType}`]);
+      main.append(this.pageElements[`${this.page}`]);
     }
 
     this.pageElements.header = header;

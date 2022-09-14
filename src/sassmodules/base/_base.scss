@@ -36,12 +36,13 @@
   --nav-icon-color: var(--nav-link-text-color);
 
   // sections generic
-  --section-heading-text-size: var(--fnt-sz-xl);
+  --section-heading-text-size: #{a.insertClamp(2.5, 5, 280, 1170)};
   --section-heading-text-weight: var(--fnt-wt-x);
 
   // footer
   --footer-bg-clr: var(--clr-dark-grey);
   --footer-text-clr: var(--clr-white);
+  --footer-copyright-text-size: var(--fnt-sz-xs);
 
   // Text
   --fnt-sz-xxl: 5rem;

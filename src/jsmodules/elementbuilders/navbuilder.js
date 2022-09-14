@@ -3,27 +3,21 @@
 import Utils from './utility.js';
 
 export default class Nav extends Utils {
-  build(brand, location, navItems) {
+  build(brand, navItems) {
     const navbarElement = super.create('nav', 'navbar');
-
     const navbarListElement = super.create('ul', 'navbar__navlist');
-
     const brandItem = super.create('li', 'navbar__brand');
-
     const brandItemLink = super.create('a', 'navbar__brand--link');
     brandItemLink.setAttribute('href', '#');
-    brandItemLink.textContent = `${brand}`;
-
+    brandItemLink.textContent = `${brand.brand}`;
     const brandItemLocation = super.create('span', 'navbar__brand--location');
-    brandItemLocation.textContent = `${location}`;
-
+    brandItemLocation.textContent = `${brand.city}`;
     const burgerItem = super.create('li', 'toggle');
     const burgerIcon = super.createSVG(
       'burger',
       'icon--navbar',
       'icon--burger'
     );
-
     brandItemLink.append(brandItemLocation);
     brandItem.append(brandItemLink);
     burgerItem.append(burgerIcon);
@@ -37,7 +31,7 @@ export default class Nav extends Utils {
         navLink.setAttribute('href', '#');
       } else {
         navLink.setAttribute('href', `#${item}`);
-        navLink.dataset.smoothscroll = true;
+        navLink.dataset.smoothscroll = 'true';
       }
       navItem.append(navLink);
       navbarListElement.append(navItem);

@@ -5,24 +5,10 @@ import Model from './jsmodules/model.js';
 import View from './jsmodules/view.js';
 
 class Controller {
-  constructor(model, view) {
+  constructor() {
     this.model = new Model();
     this.view = new View();
     this.init();
-  }
-  applySmoothScroll() {
-    document
-      .querySelector('.navbar__navlist')
-      .addEventListener('click', function (e) {
-        if (
-          e.target.classList.contains('navbar__link') &&
-          e.target.dataset.smoothscroll === true
-        ) {
-          e.preventDefault();
-          const id = e.target.getAttribute('href');
-          document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
-        }
-      });
   }
   displayElements() {
     document.body.append(
@@ -32,12 +18,14 @@ class Controller {
     );
   }
   handleClick(event) {
-    event.preventDefault();
-    const target = event.target.textContent;
-    console.log(target);
-    controller.view.setBuildType(target);
-    controller.clearPage();
-    controller.init();
+    const target = event.target;
+    if (target.dataset.smoothscroll !== 'true') {
+      const page = target.textContent;
+      event.preventDefault();
+      this.view.page = page;
+      this.clearPage();
+      this.init();
+    }
   }
   clearPage() {
     while (document.body.firstChild) {
@@ -56,15 +44,15 @@ class Controller {
       .addEventListener('click', this.view.toggleNav);
     document
       .querySelectorAll('.navbar__link')
-      .forEach((link) => link.addEventListener('click', this.handleClick));
+      .forEach((link) =>
+        link.addEventListener('click', this.handleClick.bind(this))
+      );
   }
 
   init() {
-    // this.View.initElements(this.Model);
     this.view.getElements(this.model);
     this.view.buildPage(this.model);
     this.displayElements();
-    this.applySmoothScroll();
     this.eventHandlers();
   }
 }

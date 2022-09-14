@@ -1,14 +1,11 @@
 @use '../abstracts/' as a;
 
 .navbar {
-  position: fixed;
-  top: 0;
   color: var(--clr-white);
   padding: var(--nav-padding);
   background: var(--nav-bg-clr);
   box-shadow: var(--default-box-shadow);
   width: 100%;
-  z-index: 100;
 
   &__brand {
     &--link {

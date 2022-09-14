@@ -4,10 +4,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  max-height: 100vh;
 
   & .section {
-    height: 100vh;
-    width: 100vw;
+    // height: 100vh;
+    // width: 100vw;
+    width: 100%;
+    aspect-ratio: 1;
     background-image: linear-gradient(
         to right bottom,
         (rgba(0, 0, 0, var(--header-bg-fade-value))),
