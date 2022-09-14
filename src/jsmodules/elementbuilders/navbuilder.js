@@ -11,7 +11,7 @@ export default class Nav extends Utils {
     brandItemLink.setAttribute('href', '#');
     brandItemLink.textContent = `${brand.brand}`;
     const brandItemLocation = super.create('span', 'navbar__brand--location');
-    brandItemLocation.textContent = `${brand.city}`;
+    brandItemLocation.textContent = `${brand.contact.city}`;
     const burgerItem = super.create('li', 'toggle');
     const burgerIcon = super.createSVG(
       'burger',

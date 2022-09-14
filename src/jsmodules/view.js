@@ -34,7 +34,9 @@ export default class View {
     this.pageElements.gallery = this.galleryBuilder.build();
     this.pageElements.reviews = this.reviewsBuilder.build();
     this.pageElements.contact = this.contactBuilder.build();
-    this.pageElements.footer = this.footerBuilder.build();
+    this.pageElements.footer = this.footerBuilder.build(
+      options.businessDetails.contact
+    );
   }
 
   buildPage() {
@@ -51,7 +53,6 @@ export default class View {
 
     this.pageElements.header = header;
     this.pageElements.main = main;
-    this.pageElements.footer = this.footerBuilder.build();
   }
   toggleNav() {
     const navbar = document.querySelector('.navbar__navlist');

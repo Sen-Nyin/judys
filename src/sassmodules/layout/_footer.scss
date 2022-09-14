@@ -1,9 +1,31 @@
+@use '../abstracts/' as a;
+
 .footer {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
   padding-block: 10rem;
   text-align: center;
   color: var(--footer-text-clr);
   background: var(--footer-bg-clr);
+  &__grid {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    gap: 4rem;
+  }
   &__copyright {
     font-size: var(--footer-copyright-text-size);
+  }
+  &__address {
+    font-size: var(--fnt-sz-l);
+    text-align: center;
+    @include a.breakpoint(md, min) {
+      text-align: left;
+    }
+  }
+  &__address-link {
+    color: var(--clr-primary);
+    font-weight: var(--fnt-wt-l);
   }
 }

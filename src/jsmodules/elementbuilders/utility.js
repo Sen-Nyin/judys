@@ -28,11 +28,13 @@ export default class Utils {
     element.id = section;
     return element;
   }
-  createContainer(heading) {
-    const container = this.create('article', 'section__container');
-    const header = this.create('h2', 'section__heading');
-    header.textContent = this.capitalise(heading);
-    container.append(header);
+  createContainer(heading = null) {
+    const container = this.create('div', 'container');
+    if (heading !== null) {
+      const header = this.create('h2', 'section__heading');
+      header.textContent = this.capitalise(heading);
+      container.append(header);
+    }
     return container;
   }
 }

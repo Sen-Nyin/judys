@@ -4,10 +4,13 @@ export default class Model {
   constructor() {
     this.businessDetails = {
       brand: "Jude's",
-      address: null,
-      city: 'Liverpool',
-      postcode: null,
-      phone: '0151 329 1253',
+      contact: {
+        street: '50 Some Street',
+        city: 'Liverpool',
+        postcode: 'L1 2PP',
+        phone: '0151 329 1253',
+        email: 'someemail',
+      },
     };
     this.hero = {
       headline: 'If Carlsberg did burgers, ours would be better',
