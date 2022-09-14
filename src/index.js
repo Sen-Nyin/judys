@@ -6,15 +6,14 @@ import View from './jsmodules/view.js';
 
 class Controller {
   constructor(model, view) {
-    this.Model = model;
-    this.View = view;
+    this.model = new Model();
+    this.view = new View();
     this.init();
   }
   applySmoothScroll() {
     document
       .querySelector('.navbar__navlist')
       .addEventListener('click', function (e) {
-        console.log(e.target);
         if (
           e.target.classList.contains('navbar__link') &&
           e.target.textContent !== 'home'
@@ -26,28 +25,32 @@ class Controller {
       });
   }
   displayElements() {
-    document.body.append(this.View.header, this.View.main, this.View.footer);
+    document.body.append(
+      this.view.pageElements.header,
+      this.view.pageElements.main,
+      this.view.pageElements.footer
+    );
   }
 
   eventHandlers() {
     document
       .querySelector('.navbar__navlist')
-      .addEventListener('mouseover', this.View.handleHover.bind(0.3));
+      .addEventListener('mouseover', this.view.handleHover.bind(0.3));
     document
       .querySelector('.navbar__navlist')
-      .addEventListener('mouseout', this.View.handleHover.bind(1));
+      .addEventListener('mouseout', this.view.handleHover.bind(1));
     document
       .querySelector('.icon--burger')
-      .addEventListener('click', this.View.toggleNav);
+      .addEventListener('click', this.view.toggleNav);
   }
   init() {
-    this.View.initElements(this.Model);
+    // this.View.initElements(this.Model);
+    this.view.getElements(this.model);
+    this.view.buildPage();
     this.displayElements();
     this.applySmoothScroll();
     this.eventHandlers();
   }
 }
 
-const model = new Model();
-const view = new View();
-const controller = new Controller(model, view);
+const controller = new Controller();

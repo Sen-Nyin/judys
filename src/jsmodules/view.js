@@ -1,130 +1,64 @@
 'use: strict';
 import sprite from '../assets/sprite.svg';
-import heroimage from '../assets/shopimage.png';
+
+import NavBuilder from './elementbuilders/navbuilder.js';
+import HeroBuilder from './elementbuilders/herobuilder.js';
+import ContactBuilder from './elementbuilders/contactbuilder.js';
+import GalleryBuilder from './elementbuilders/gallerybuilder.js';
+import MenuBuilder from './elementbuilders/menusbuilder.js';
+import ReviewsBuilder from './elementbuilders/reviewsbuilder.js';
+import FooterBuilder from './elementbuilders/footerbuilder.js';
+import Utility from './elementbuilders/utility.js';
 
 export default class View {
   constructor() {
     this.pageElements = {};
+    this.navBuilder = new NavBuilder();
+    this.heroBuilder = new HeroBuilder();
+    this.contactBuilder = new ContactBuilder();
+    this.galleryBuilder = new GalleryBuilder();
+    this.menuBuilder = new MenuBuilder();
+    this.reviewsBuilder = new ReviewsBuilder();
+    this.footerBuilder = new FooterBuilder();
+    this.utility = new Utility();
   }
-  capitalise(string) {
-    const capitalised = string.charAt(0).toUpperCase() + string.slice(1);
-    return capitalised;
+  getElements(options) {
+    this.pageElements.hero = this.heroBuilder.build(options.hero);
+    this.pageElements.navbar = this.navBuilder.build(
+      options.businessDetails.brand,
+      options.businessDetails.location,
+      options.navItems
+    );
+    this.pageElements.menu = this.menuBuilder.build(options.menu);
+    this.pageElements.gallery = this.galleryBuilder.build();
+    this.pageElements.reviews = this.reviewsBuilder.build();
+    this.pageElements.contact = this.contactBuilder.build();
+    this.pageElements.footer = this.footerBuilder.build();
   }
-  createElement(...args) {
-    const [element, ...styles] = args;
-    const createdElement = document.createElement(element);
-    styles.forEach((style) => createdElement.classList.add(style));
-    return createdElement;
-  }
-  createSVG(...args) {
-    const [icon, ...styles] = args;
-    const w3ns = 'http://www.w3.org/2000/svg';
-    const svg = document.createElementNS(w3ns, 'svg');
-    const use = document.createElementNS(w3ns, 'use');
-    use.setAttribute('href', `${sprite}#icon-${icon}`);
-    styles.forEach((style) => svg.classList.add(style));
-    svg.append(use);
-    return svg;
-  }
+
   buildPage() {
-    const header = this.createElement('header', 'header');
-    const main = this.createElement('main', 'main');
-    const footer = this.createElement('footer', 'footer');
-    header.append(this.pageElements.navbar, this.pageElements.hero);
-    main.append(
-      this.pageElements.menus,
-      this.pageElements.gallery,
-      this.pageElements.reviews,
-      this.pageElements.contact
-    );
-    footer.append(this.pageElements.footerContent);
-    this.header = header;
-    this.main = main;
-    this.footer = footer;
-  }
-  buildHero(options) {
-    const heroElement = this.createElement('div', 'header__hero');
-    const heroTitle = this.createElement('h1', 'header__title');
-    heroTitle.textContent = options.headline;
-    const heroSubtext = this.createElement('h2', 'header__subtext');
-    heroSubtext.textContent = options.subtext;
-    const heroImage = this.createElement('img', 'header__image');
-    heroImage.setAttribute('src', `${heroimage}`);
-    heroElement.append(heroTitle, heroSubtext, heroImage);
-    this.pageElements.hero = heroElement;
-  }
-  buildNav(brand, location, navItems) {
-    const navbarElement = this.createElement('nav', 'navbar');
-    const navbarListElement = this.createElement('ul', 'navbar__navlist');
-    const brandItem = this.createElement('li', 'navbar__brand');
-    const brandItemLink = this.createElement('a', 'navbar__brand--link');
-    const brandItemLocation = this.createElement(
-      'span',
-      'navbar__brand--location'
-    );
-    const burgerItem = this.createElement('li', 'toggle');
-    const burgerIconSVG = this.createSVG(
-      'burger',
-      'icon--navbar',
-      'icon--burger'
-    );
-    brandItemLink.setAttribute('href', '#');
-    brandItemLink.textContent = `${brand}`;
-    brandItemLocation.textContent = `${location}`;
-    brandItemLink.append(brandItemLocation);
-    brandItem.append(brandItemLink);
-    burgerItem.append(burgerIconSVG);
-    navbarListElement.append(brandItem, burgerItem);
-    navbarElement.append(navbarListElement);
-    navItems.forEach((item) => {
-      const navItem = this.createElement('li', 'navbar__item');
-      const navLink = this.createElement('a', 'navbar__link');
-      navLink.textContent = `${item}`;
-      if (item === 'home') {
-        navLink.setAttribute('href', '#');
-      } else {
-        navLink.setAttribute('href', `#${item}`);
-      }
-      navItem.append(navLink);
-      navbarListElement.append(navItem);
-    });
-    this.pageElements.navbar = navbarElement;
-  }
-  buildSection(section) {
-    const element = this.createElement('section', 'section');
-    element.id = section;
-    const container = this.createElement('article', 'section__container');
-    const header = this.createElement('h2', 'section__heading');
-    header.textContent = this.capitalise(section);
-    container.append(header);
-    element.append(container);
-    return element;
-  }
-  buildMenus(menu) {
-    const menuSection = this.buildSection('menu');
+    // TEMPORARY variable for testing
+    const buildType = 'menu';
 
-    this.pageElements.menus = menuSection;
-  }
-  buildGallery() {
-    const gallerySection = this.buildSection('gallery');
+    const header = this.utility.create('header', 'header');
+    const main = this.utility.create('main', 'main');
 
-    this.pageElements.gallery = gallerySection;
-  }
-  buildReviews() {
-    const reviewsSection = this.buildSection('reviews');
+    if (buildType === 'home') {
+      header.append(this.pageElements.navbar, this.pageElements.hero);
+      main.append(
+        this.pageElements.menu,
+        this.pageElements.gallery,
+        this.pageElements.reviews,
+        this.pageElements.contact
+      );
+    } else {
+      header.append(this.pageElements.navbar);
+      main.append(this.pageElements[`${buildType}`]);
+    }
 
-    this.pageElements.reviews = reviewsSection;
-  }
-  buildContactForm() {
-    const contactSection = this.buildSection('contact');
-
-    this.pageElements.contact = contactSection;
-  }
-  buildFooter() {
-    const footerMessage = this.createElement('p', 'footer__copyright');
-    footerMessage.textContent = `\u00A9 Leon Lonsdale`;
-
-    this.pageElements.footerContent = footerMessage;
+    this.pageElements.header = header;
+    this.pageElements.main = main;
+    this.pageElements.footer = this.footerBuilder.build();
   }
   toggleNav() {
     const navbar = document.querySelector('.navbar__navlist');
@@ -149,18 +83,4 @@ export default class View {
       });
     }
   };
-  initElements(options) {
-    this.buildHero(options.hero);
-    this.buildNav(
-      options.businessDetails.brand,
-      options.businessDetails.location,
-      options.navItems
-    );
-    this.buildMenus(options.menu);
-    this.buildGallery();
-    this.buildReviews();
-    this.buildContactForm();
-    this.buildFooter();
-    this.buildPage();
-  }
 }
