@@ -4,16 +4,20 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
-  background-image: linear-gradient(
-      to right bottom,
-      (rgba(0, 0, 0, var(--header-bg-fade-value))),
-      (rgba(0, 0, 0, var(--header-bg-fade-value)))
-    ),
-    url('./assets/image-burger.jpg');
-  background-size: cover;
-  background-repeat: none;
-  background-position: center;
+
+  & .section {
+    height: 100vh;
+    width: 100vw;
+    background-image: linear-gradient(
+        to right bottom,
+        (rgba(0, 0, 0, var(--header-bg-fade-value))),
+        (rgba(0, 0, 0, var(--header-bg-fade-value)))
+      ),
+      url('./assets/image-burger.jpg');
+    background-size: cover;
+    background-repeat: none;
+    background-position: center;
+  }
 
   &__hero {
     flex: 1;
@@ -28,14 +32,6 @@
     gap: var(--header-gap);
     grid-template-areas: 'title' 'subtext' 'image';
     text-align: center;
-
-    @include a.breakpoint(md, min) {
-      grid-template-areas: 'title image' 'subtext image' '. image';
-      grid-template-rows: repeat(3, max-content);
-      grid-template-columns: 3fr, 1fr;
-      justify-items: start;
-      text-align: left;
-    }
   }
 
   &__title {

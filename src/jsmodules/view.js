@@ -12,6 +12,7 @@ import Utility from './elementbuilders/utility.js';
 
 export default class View {
   constructor() {
+    this.buildType = 'home';
     this.pageElements = {};
     this.navBuilder = new NavBuilder();
     this.heroBuilder = new HeroBuilder();
@@ -24,11 +25,11 @@ export default class View {
   }
   getElements(options) {
     this.pageElements.hero = this.heroBuilder.build(options.hero);
-    this.pageElements.navbar = this.navBuilder.build(
-      options.businessDetails.brand,
-      options.businessDetails.location,
-      options.navItems
-    );
+    // this.pageElements.navbar = this.navBuilder.build(
+    //   options.businessDetails.brand,
+    //   options.businessDetails.city,
+    //   options.navItems.homeNav
+    // );
     this.pageElements.menu = this.menuBuilder.build(options.menu);
     this.pageElements.gallery = this.galleryBuilder.build();
     this.pageElements.reviews = this.reviewsBuilder.build();
@@ -36,24 +37,26 @@ export default class View {
     this.pageElements.footer = this.footerBuilder.build();
   }
 
-  buildPage() {
-    // TEMPORARY variable for testing
-    const buildType = 'menu';
-
+  buildPage(options) {
     const header = this.utility.create('header', 'header');
     const main = this.utility.create('main', 'main');
 
-    if (buildType === 'home') {
-      header.append(this.pageElements.navbar, this.pageElements.hero);
-      main.append(
-        this.pageElements.menu,
-        this.pageElements.gallery,
-        this.pageElements.reviews,
-        this.pageElements.contact
+    if (this.buildType === 'home') {
+      this.pageElements.navbar = this.navBuilder.build(
+        options.businessDetails.brand,
+        options.businessDetails.city,
+        options.navItems.homeNav
       );
+      header.append(this.pageElements.navbar, this.pageElements.hero);
+      main.append(this.pageElements.gallery, this.pageElements.reviews);
     } else {
+      this.pageElements.navbar = this.navBuilder.build(
+        options.businessDetails.brand,
+        options.businessDetails.city,
+        options.navItems.other
+      );
       header.append(this.pageElements.navbar);
-      main.append(this.pageElements[`${buildType}`]);
+      main.append(this.pageElements[`${this.buildType}`]);
     }
 
     this.pageElements.header = header;
@@ -83,4 +86,7 @@ export default class View {
       });
     }
   };
+  setBuildType(type) {
+    this.buildType = type;
+  }
 }

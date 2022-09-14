@@ -16,7 +16,7 @@ class Controller {
       .addEventListener('click', function (e) {
         if (
           e.target.classList.contains('navbar__link') &&
-          e.target.textContent !== 'home'
+          e.target.dataset.smoothscroll === true
         ) {
           e.preventDefault();
           const id = e.target.getAttribute('href');
@@ -31,7 +31,19 @@ class Controller {
       this.view.pageElements.footer
     );
   }
-
+  handleClick(event) {
+    event.preventDefault();
+    const target = event.target.textContent;
+    console.log(target);
+    controller.view.setBuildType(target);
+    controller.clearPage();
+    controller.init();
+  }
+  clearPage() {
+    while (document.body.firstChild) {
+      document.body.firstChild.remove();
+    }
+  }
   eventHandlers() {
     document
       .querySelector('.navbar__navlist')
@@ -42,11 +54,15 @@ class Controller {
     document
       .querySelector('.icon--burger')
       .addEventListener('click', this.view.toggleNav);
+    document
+      .querySelectorAll('.navbar__link')
+      .forEach((link) => link.addEventListener('click', this.handleClick));
   }
+
   init() {
     // this.View.initElements(this.Model);
     this.view.getElements(this.model);
-    this.view.buildPage();
+    this.view.buildPage(this.model);
     this.displayElements();
     this.applySmoothScroll();
     this.eventHandlers();

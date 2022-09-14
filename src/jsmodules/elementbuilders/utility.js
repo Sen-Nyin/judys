@@ -26,11 +26,13 @@ export default class Utils {
   createSection(section) {
     const element = this.create('section', 'section');
     element.id = section;
+    return element;
+  }
+  createContainer(heading) {
     const container = this.create('article', 'section__container');
     const header = this.create('h2', 'section__heading');
-    header.textContent = this.capitalise(section);
+    header.textContent = this.capitalise(heading);
     container.append(header);
-    element.append(container);
-    return element;
+    return container;
   }
 }

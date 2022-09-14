@@ -33,10 +33,11 @@ export default class Nav extends Utils {
       const navItem = super.create('li', 'navbar__item');
       const navLink = super.create('a', 'navbar__link');
       navLink.textContent = `${item}`;
-      if (item === 'home') {
+      if (item === 'home' || item === 'menu' || item === 'contact') {
         navLink.setAttribute('href', '#');
       } else {
         navLink.setAttribute('href', `#${item}`);
+        navLink.dataset.smoothscroll = true;
       }
       navItem.append(navLink);
       navbarListElement.append(navItem);

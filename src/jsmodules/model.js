@@ -13,7 +13,10 @@ export default class Model {
       headline: 'If Carlsberg did burgers, ours would be better',
       subtext: 'Fat juicy burgers',
     };
-    this.navItems = ['home', 'menu', 'gallery', 'reviews', 'contact'];
+    this.navItems = {
+      homeNav: ['home', 'gallery', 'reviews', 'menu', 'contact'],
+      other: ['home', 'menu', 'contact'],
+    };
     this.menu = [
       {
         itemID: 1,
