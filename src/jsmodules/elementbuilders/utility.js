@@ -13,6 +13,18 @@ export default class Utils {
     styles.forEach((style) => createdElement.classList.add(style));
     return createdElement;
   }
+  text(ele, text) {
+    const element = ele;
+    element.textContent = text;
+    return element;
+  }
+  attribute(ele, attributes) {
+    const element = ele;
+    for (const key of Object.keys(attributes)) {
+      element.setAttribute(`${key}`, `${attributes[key]}`);
+    }
+    return element;
+  }
   createSVG(...args) {
     const [icon, ...styles] = args;
     const w3ns = 'http://www.w3.org/2000/svg';
