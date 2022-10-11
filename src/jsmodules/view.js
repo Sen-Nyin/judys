@@ -80,4 +80,27 @@ export default class View {
   setBuildType(type) {
     this.buildType = type;
   }
+  eventHandlers() {
+    document
+      .querySelector('.navbar__navlist')
+      .addEventListener('mouseover', this.handleHover.bind(0.3));
+    document
+      .querySelector('.navbar__navlist')
+      .addEventListener('mouseout', this.handleHover.bind(1));
+    document
+      .querySelector('.icon--burger')
+      .addEventListener('click', this.toggleNav);
+    document
+      .querySelectorAll('.navbar__link')
+      .forEach((link) =>
+        link.addEventListener('click', controller.handleClick.bind(e))
+      );
+  }
+  displayElements() {
+    document.body.append(
+      this.pageElements.header,
+      this.pageElements.main,
+      this.pageElements.footer
+    );
+  }
 }
